@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudentMarket Global - Marketplace Étudiante Internationale</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+ :root {
+  --primary: #00d4ff;
+  --primary-dark: #00a8cc;
+  --secondary: #00ff88;
+  --dark: #0a0f1f;
+  --white: #ffffff;
+  --glass: rgba(255,255,255,0.9);
+  --glass-border: rgba(0,0,0,0.1);
+  --shadow: 0 20px 40px rgba(0,0,0,0.1);
+  --shadow-hover: 0 30px 60px rgba(0,0,0,0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--white);
+  color: var(--dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background decoration */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0,212,255,0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0,255,136,0.05) 0%, transparent 50%);
+  z-index: -1;
+}
+
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 5%;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+.cart-icon {
+  position: relative;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cart-icon:hover {
+  color: var(--secondary);
+  transform: scale(1.1);
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--secondary);
+  color: black;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hero */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 5%;
+}
+
+.hero-content h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+  animation: slideInUp 1s ease-out;
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  max-width: 700px;
+  color: #666;
+  margin-bottom: 40px;
+  animation: slideInUp 1s ease-out 0.2s both;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: slideInUp 1s ease-out 0.4s both;
+}
+
+.btn {
+  padding: 15px 35px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  color: white;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary, .btn-small {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn:hover, .btn-small:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.btn-primary:hover, .btn-small:hover {
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+/* Section générique */
+.section {
+  padding: 100px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.8rem;
+  text-align: center;
+  margin-bottom: 60px;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.filter-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid var(--glass-border);
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--dark);
+  transition: all 0.3s ease;
+}
+
+.filter-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+/* Responsive Grid */
+@media (max-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Product Card */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  min-height: 360px;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+}
+
+.card-image-container {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .card-image {
+  transform: scale(1.05);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 15px;
+}
+
+.card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 10px;
+}
+
+/* pousse les boutons en bas */
+.card-spacer {
+  flex-grow: 1;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.btn-small {
+  flex: 1;
+  text-align: center;
+  padding: 10px 15px;
+  border-radius: 15px;
+}
+
+.toggle-details {
+  background: rgba(0,212,255,0.1);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-size: 0.85rem;
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: slideInUp 0.8s ease-out forwards;
+}
+</style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="logo">StudentMarket</div>
+      <nav>
+        <a href="#accueil">Accueil</a>
+        <a href="#pays">Pays</a>
+        <a href="#produits">Produits</a>
+        <a href="../Software-Development-Process/login.html">Login</a>
+        <a href="#" class="cart-icon" id="cartToggle">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="accueil">
+    <div class="hero-content">
+      <h1>StudentMarket Global</h1>
+      <p>Découvrez des produits uniques de chaque pays. Marketplace internationale pour étudiants avec des "républiques virtuelles" immersives.</p>
+      <div class="hero-buttons">
+        <a href="#pays" class="btn">Explorer les Pays <i class="fas fa-globe"></i></a>
+        <a href="#produits" class="btn btn-primary">Produits Populaires <i class="fas fa-fire"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Républiques Virtuelles -->
+
+<section class="section" id="pays">
+  <h2>Républiques Virtuelles</h2>
+
+  <!-- Filtres -->
+  <div class="filter-tabs">
+    <div class="filter-tab active" data-filter="all">Tous les Pays</div>
+    <div class="filter-tab" data-filter="europe">Europe</div>
+    <div class="filter-tab" data-filter="asia">Asie</div>
+    <div class="filter-tab" data-filter="americas">Amériques</div>
+  </div>
+
+  <div class="cards-grid">
+    <!-- France -->
+    <div class="country-card fade-in" data-category="europe">
+      <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&h=220&fit=crop" alt="France" class="card-image">
+      <div class="card-content">
+        <div class="country-flag">
+          <span class="flag-emoji">🇫🇷</span>
+          <h3 class="card-title">France</h3>
+        </div>
+        <p class="card-subtitle">Fromages, vins, mode parisienne et artisanat</p>
+        <div class="card-actions">
+          <a href="#" class="btn btn-small">Découvrir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Italie -->
+    <div class="country-card fade-in" data-category="europe">
+      <img src="https://imgs.search.brave.com/7Bnt3UNrPpKGSnQQsYAkipV9R6_UAogDZ8U2CH5pl68/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNTM0/Nzk5NTA3L2ZyL3Bo/b3RvL3JvbWUtZW4t/aXRhbGllLmpwZz9z/PTYxMng2MTImdz0w/Jms9MjAmYz15WVYz/Tm5SUXRxX1hmekZy/RXAyU1JiOUFkZWFK/Vm10Yy10RWQzN1ph/Sk9BPQ" alt="Italie" class="card-image">
+      <div class="card-content">
+        <div class="country-flag">
+          <span class="flag-emoji">🇮🇹</span>
+          <h3 class="card-title">Italie</h3>
+        </div>
+        <p class="card-subtitle">Pizzas, pâtes, vins et artisanat traditionnel</p>
+        <div class="card-actions">
+          <a href="#" class="btn btn-small">Découvrir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grèce -->
+    <div class="country-card fade-in" data-category="europe">
+      <img src="https://imgs.search.brave.com/DZgd8ESRqBfJ8Uz17MlCZSuZdGYJS_US95aP81tmK6E/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy85/LzkxL1ZpZXdfb2Zf/dGhlX0Fjcm9wb2xp/c19BdGhlbnNfKHBp/eGlubi5uZXQpLmpw/Zw" alt="Grèce" class="card-image">
+      <div class="card-content">
+        <div class="country-flag">
+          <span class="flag-emoji">🇬🇷</span>
+          <h3 class="card-title">Grèce</h3>
+        </div>
+        <p class="card-subtitle">Méditerranée, olives, feta, plages et îles</p>
+        <div class="card-actions">
+          <a href="#" class="btn btn-small">Découvrir</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="produits">
+  <h2>Produits Populaires</h2>
+
+  <!-- Filtres (design only) -->
+  <div class="filter-tabs">
+    <div class="filter-tab active">Tous</div>
+    <div class="filter-tab">Alimentaire</div>
+  </div>
+
+  <!-- Grille des produits -->
+  <div class="cards-grid">
+
+    <div class="product-card">
+      <div class="card-image-container">
+        <img src="https://imgs.search.brave.com/9tnDGVhL4eBETsO-xs0il41aX0zjICzy2UAxYTcztR0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9mcm9t/YWdlLWRlLWNhbWVt/YmVydC0yODk3MDkx/MS5qcGc" class="card-image">
+      </div>
+      <div class="card-content">
+        <div class="country-flag">
+          <span class="flag-emoji">🇫🇷</span>
+          <h3 class="card-title">Camembert AOP</h3>
+        </div>
+        <p class="card-subtitle">Fromage traditionnel français</p>
+        <div class="product-price">12,50€</div>
+        <div class="card-spacer"></div>
+        <div class="card-actions">
+          <button class="btn-small">Détails</button>
+          <button class="btn-small add-to-cart">Ajouter</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="card-image-container">
+        <img src="https://imgs.search.brave.com/TGxQ_ZBp4zvFqg1QrxvnN6JBQSnMKv1ytoxA5VBjg88/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTIx/MzUyODM4MC9mci9w/aG90by9tYXJnaGVy/aXRhLXBpenphLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz1a/X0R0XzZLTmZKTlRO/cEluNmxueUliaDBI/TWZDR2pQbVJOVzVB/ZVJWbGc0PQ" class="card-image">
+      </div>
+      <div class="card-content">
+        <div class="country-flag">
+          <span class="flag-emoji">🇮🇹</span>
+          <h3 class="card-title">Pizza Napolitaine</h3>
+        </div>
+        <p class="card-subtitle">Recette artisanale italienne</p>
+        <div class="product-price">9,90€</div>
+        <div class="card-spacer"></div>
+        <div class="card-actions">
+          <button class="btn-small">Détails</button>
+          <button class="btn-small">Ajouter</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="card-image-container">
+        <img src="https://imgs.search.brave.com/yAVDurg0FGRGiHxwyjC-YMTrr9nWLBcrP_wyCLOA4ss/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wMjUv/NTI1LzQ1OS9zbWFs/bC9yZWFsaXN0aWMt/b3JhbmdlLXRleHR1/cmUtb3JhbmdlLWNp/cmNsZXMtY2xvc2Ut/dXAtdHJvcGljYWwt/cGF0dGVybi1mcnVp/dC1iYW5uZXItYWkt/Z2VuZXJhdGVkLWlt/YWdlLXBob3RvLmpw/Zw" class="card-image">
+      </div>
+      <div class="card-content">
+        <div class="country-flag">
+          <span class="flag-emoji">🇪🇸</span>
+          <h3 class="card-title">Oranges Bio</h3>
+        </div>
+        <p class="card-subtitle">Agrumes frais de Valence</p>
+        <div class="product-price">4,50€ / kg</div>
+        <div class="card-spacer"></div>
+        <div class="card-actions">
+          <button class="btn-small">Détails</button>
+          <button class="btn-small">Ajouter</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="card-image-container">
+        <img src="https://imgs.search.brave.com/_azsnVK-f-vBXH_SArO8S1o80Bfz53J3PSYmCY6kjrM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvOTU5/OTMyNDAyL2ZyL3Bo/b3RvL21haXNvbi10/YXJ0ZS1hdXgtZnJh/aXNlcy1jciVDMyVB/OG1lLSVDMyVBMC1s/YS12YW5pbGxlLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz1Y/RnJaR0xHLUt2YkZP/OUJMdzlqdEJBV3Ro/cnZiNFlBSUN1am9Y/S2liMlM0PQ" class="card-image">
+      </div>
+      <div class="card-content">
+        <div class="country-flag">
+          <span class="flag-emoji">🇫🇷</span>
+          <h3 class="card-title">Fraisier Pâtissier</h3>
+        </div>
+        <p class="card-subtitle">Dessert traditionnel à la crème</p>
+        <div class="product-price">22€</div>
+        <div class="card-spacer"></div>
+        <div class="card-actions">
+          <button class="btn-small">Détails</button>
+          <button class="btn-small">Ajouter</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</body>
