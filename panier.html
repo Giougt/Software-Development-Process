@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panier - StudentMarket Global</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #00d4ff;
+  --secondary: #00ff88;
+  --dark: #0a0f1f;
+  --white: #ffffff;
+  --shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+/* HEADER */
+header {
+  background: white;
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 1.5rem;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--dark);
+}
+
+/* CONTAINER */
+.container {
+  padding: 40px 5%;
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+/* CART */
+.cart-item {
+  background: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cart-info img {
+  width: 80px;
+  border-radius: 10px;
+}
+
+.cart-actions button {
+  margin-left: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.remove {
+  background: red;
+  color: white;
+}
+
+.total {
+  text-align: right;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.checkout {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.btn {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">StudentMarket</div>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="products.html">Produits</a>
+    <a href="panier.html">Panier</a>
+  </nav>
+</header>
+
+<div class="container">
+  <h1>🛒 Mon Panier</h1>
+
+  <div id="cartContainer"></div>
+
+  <div class="total" id="total"></div>
+
+  <div class="checkout">
+    <button class="btn">Passer commande</button>
+  </div>
+</div>
+
+<script>
+let cart = [];
+
+if (cart.length === 0) {
+  cart = [
+    { name: "Fraisier", price: 22, quantity: 1, image: "https://via.placeholder.com/80" },
+    { name: "Pizza", price: 9.90, quantity: 2, image: "https://via.placeholder.com/80" }
+  ];
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+const container = document.getElementById('cartContainer');
+const totalDiv = document.getElementById('total');
+
+function displayCart() {
+  container.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price * item.quantity;
+
+    container.innerHTML += `
+      <div class="cart-item">
+        <div class="cart-info">
+          <img src="${item.image}" alt="">
+          <div>
+            <h3>${item.name}</h3>
+            <p>${item.price} € x ${item.quantity}</p>
+          </div>
+        </div>
+
+        <div class="cart-actions">
+          <button onclick="removeItem(${index})" class="remove">Supprimer</button>
+        </div>
+      </div>
+    `;
+  });
+
+  totalDiv.innerText = "Total : " + total + " €";
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  displayCart();
+}
+
+displayCart();
+</script>
+
+</body>
+</html>

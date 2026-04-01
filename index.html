@@ -388,7 +388,7 @@ nav a:hover::after {
         <a href="#pays">Pays</a>
         <a href="#produits">Produits</a>
         <a href="../Software-Development-Process/login.html">Login</a>
-        <a href="#" class="cart-icon" id="cartToggle">
+        <a href="panier.html" class="cart-icon" id="cartToggle">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-count" id="cartCount">0</span>
         </a>
@@ -497,7 +497,7 @@ nav a:hover::after {
         <div class="card-spacer"></div>
         <div class="card-actions">
           <button class="btn-small">Détails</button>
-          <button class="btn-small add-to-cart">Ajouter</button>
+          <button class="btn-small add-to-cart" onclick="toggleCart(this)">Ajouter</button>
         </div>
       </div>
     </div>
@@ -516,7 +516,7 @@ nav a:hover::after {
         <div class="card-spacer"></div>
         <div class="card-actions">
           <button class="btn-small">Détails</button>
-          <button class="btn-small">Ajouter</button>
+          <button class="btn-small add-to-cart" onclick="toggleCart(this)">Ajouter</button>
         </div>
       </div>
     </div>
@@ -535,7 +535,7 @@ nav a:hover::after {
         <div class="card-spacer"></div>
         <div class="card-actions">
           <button class="btn-small">Détails</button>
-          <button class="btn-small">Ajouter</button>
+          <button class="btn-small add-to-cart" onclick="toggleCart(this)">Ajouter</button>
         </div>
       </div>
     </div>
@@ -554,11 +554,40 @@ nav a:hover::after {
         <div class="card-spacer"></div>
         <div class="card-actions">
           <button class="btn-small">Détails</button>
-          <button class="btn-small">Ajouter</button>
+          <button class="btn-small add-to-cart"onclick="toggleCart(this)">Ajouter</button>
         </div>
       </div>
     </div>
 
   </div>
 </section>
+<script>
+function toggleCart(button) {
+  if (button.classList.contains("added")) {
+    button.classList.remove("added");
+    button.innerText = "Ajouter";
+  } else {
+    button.classList.add("added");
+    button.innerText = "✔";
+  }
+}
+let count = 0;
+
+const cartCount = document.getElementById("cartCount");
+cartCount.innerText = count;
+
+document.querySelectorAll(".add-to-cart").forEach(button => {
+  button.addEventListener("click", () => {
+    count++;
+    cartCount.innerText = count;
+  });
+});
+
+</script>
+<style>
+  .added {
+  background-color: #9AED82;
+  color: white;
+}
+</style>
 </body>
